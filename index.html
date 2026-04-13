@@ -9,14 +9,14 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
 
         body {
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; overflow-x: hidden;
+            min-height: 100vh; overflow-x: hidden; padding: 20px 0;
         }
 
         @keyframes gradientBG {
@@ -26,61 +26,69 @@
         }
 
         #capture-node {
-            background-color: white; width: 95%; max-width: 420px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 95%; max-width: 420px;
             padding: 30px 20px; text-align: center; border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2); position: relative; z-index: 10;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative; z-index: 10;
         }
 
         .logo-text {
-            font-family: 'Brush Script MT', cursive; font-size: 4.5rem;
+            font-family: 'Brush Script MT', cursive; font-size: 4rem;
             background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             margin-bottom: 5px;
         }
 
         input {
-            width: 100%; padding: 15px; border: 2px solid #f0f0f0;
-            border-radius: 15px; margin-bottom: 15px; outline: none; font-size: 16px;
+            width: 100%; padding: 15px; border: none;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 15px; margin-bottom: 12px; outline: none; 
+            font-size: 16px; color: #fff; font-weight: 500;
         }
+        input::placeholder { color: rgba(255,255,255,0.8); }
 
         .btn-main {
-            width: 100%; padding: 16px; background: linear-gradient(45deg, #dc2743, #bc1888);
+            width: 100%; padding: 16px; 
+            background: linear-gradient(45deg, #dc2743, #bc1888);
             color: white; border: none; border-radius: 15px; font-weight: bold;
-            cursor: pointer; font-size: 17px; margin-bottom: 10px; transition: 0.3s;
+            cursor: pointer; font-size: 17px; margin-bottom: 10px;
         }
 
-        .percentage-text { font-size: 65px; font-weight: 900; color: #ed4956; margin: 10px 0; }
+        .percentage-text { font-size: 70px; font-weight: 900; color: #fff; text-shadow: 0 0 15px rgba(0,0,0,0.2); }
 
-        /* Floating Hearts Animation */
+        #advice-box {
+            margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.2);
+            border-radius: 15px; font-size: 14px; color: #fff; display: none;
+        }
+
+        .share-container { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .share-btn { padding: 12px; border-radius: 12px; border: none; color: white; font-size: 14px; cursor: pointer; font-weight: bold; flex: 1; }
+        .wa { background: #25D366; } .ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+
         .heart-particle {
             position: fixed; bottom: -10%; font-size: 25px;
             user-select: none; pointer-events: none; z-index: 1;
             animation: floatUp 4s linear forwards;
         }
         @keyframes floatUp {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-120vh) translateX(50px) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-120vh); opacity: 0; }
         }
 
-        #advice-box {
-            margin-top: 15px; padding: 15px; background: #fffde7;
-            border: 1px solid #fbc02d; display: none; border-radius: 15px; font-size: 14px;
-            color: #5d4037; line-height: 1.4;
+        .contact-us {
+            margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3);
+        }
+        .contact-us p { font-size: 14px; color: #fff; margin-bottom: 10px; font-weight: bold; }
+        .social-links a {
+            display: inline-block; margin: 0 10px; color: #fff; text-decoration: none; font-size: 13px;
+            background: rgba(0,0,0,0.2); padding: 5px 12px; border-radius: 20px;
         }
 
-        .share-container {
-            display: flex; justify-content: center; gap: 8px; margin-top: 15px; flex-wrap: wrap;
-        }
-        .share-btn {
-            padding: 12px 15px; border-radius: 12px; border: none; color: white;
-            font-size: 13px; cursor: pointer; font-weight: bold; flex: 1;
-            min-width: 100px;
-        }
-        .wa { background-color: #25D366; }
-        .fb { background-color: #1877F2; }
-        .universal { background-color: #333; }
-
-        footer { margin-top: 25px; font-size: 11px; color: #bbb; text-transform: uppercase; letter-spacing: 1px;}
+        footer { margin-top: 15px; font-size: 11px; color: rgba(255,255,255,0.7); }
     </style>
 </head>
 <body>
@@ -89,7 +97,7 @@
 
     <div id="capture-node">
         <div class="logo-text">Love Calc</div>
-        <p style="color:#888; font-size:12px; margin-bottom: 20px;">Created by Pritam Mistry</p>
+        <p style="color:#fff; font-size:12px; margin-bottom: 20px; opacity: 0.8;">Created by Pritam Mistry</p>
         
         <div id="input-area">
             <input type="text" id="name1" placeholder="আপনার নাম..." autocomplete="off">
@@ -99,29 +107,36 @@
 
         <div id="loader" style="display:none;">
             <div style="font-size:50px; animation: heartbeat 1s infinite;">💖</div>
-            <p style="font-weight:bold; color:#dc2743;">গভীর বিশ্লেষণ চলছে...</p>
+            <p style="color:white;">বিশ্লেষণ চলছে...</p>
         </div>
 
         <div id="result-box" style="display: none;">
-            <h3 id="names-display" style="color:#2c3e50; font-size: 20px;"></h3>
+            <h3 id="names-display" style="color:#fff;"></h3>
             <div class="percentage-text" id="score-val">0%</div>
             
-            <div style="background:#fff5f6; padding:15px; border-radius:20px; border:2px dashed #ff9a9e;">
-                <b id="meme-label" style="display:block; color:#d63031; font-size: 18px; margin-bottom: 5px;"></b>
-                <span id="final-msg" style="font-size:15px; color:#444;"></span>
+            <div style="background: rgba(255,255,255,0.15); padding:15px; border-radius:20px; color:#fff;">
+                <b id="meme-label" style="display:block; font-size: 18px; margin-bottom: 5px;"></b>
+                <span id="final-msg"></span>
             </div>
 
-            <button class="btn-main" style="margin-top:20px; background:#23a6d5;" onclick="getAdvice()">Any Relationship Advice? 💡</button>
+            <button class="btn-main" style="margin-top:15px; background:#23a6d5;" onclick="getAdvice()">Relationship Advice? 💡</button>
             <div id="advice-box"></div>
 
             <div class="share-container">
-                <button onclick="shareToApp('wa')" class="share-btn wa">WhatsApp</button>
-                <button onclick="shareToApp('fb')" class="share-btn fb">Facebook</button>
-                <button onclick="shareUniversal()" class="share-btn universal">More Share 📤</button>
+                <button onclick="shareImageAndLink('WhatsApp')" class="share-btn wa">WhatsApp</button>
+                <button onclick="shareImageAndLink('Instagram')" class="share-btn ig">Instagram</button>
             </div>
 
-            <button class="btn-main" style="margin-top:15px; background:#444;" onclick="downloadCard()">Save to Gallery 📸</button>
-            <p onclick="location.reload()" style="cursor:pointer; font-size:14px; color:#0095f6; margin-top:15px; font-weight:bold;">আবার চেষ্টা করুন 🔄</p>
+            <button class="btn-main" style="margin-top:10px; background:rgba(0,0,0,0.4);" onclick="downloadCard()">Save to Gallery 📸</button>
+            <p onclick="location.reload()" style="cursor:pointer; font-size:14px; color:#fff; margin-top:10px; font-weight:bold;">আবার চেষ্টা করুন 🔄</p>
+        </div>
+
+        <div class="contact-us">
+            <p>Contact Us</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1Du24h9PiY/" target="_blank">Facebook</a>
+                <a href="https://www.instagram.com/pritamxii?igsh=MW1ja2N4MXhxMTdiYg==" target="_blank">Instagram</a>
+            </div>
         </div>
 
         <footer>© 2026 PRITAM MISTRY</footer>
@@ -129,55 +144,46 @@
 
     <script>
         const audio = document.getElementById('loveSong');
-        let currentScore = 0;
-        let n1="", n2="";
+        let currentScore = 0; let p1="", p2="";
 
         function createFloatingHearts() {
             for(let i=0; i<20; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
                     heart.className = 'heart-particle';
-                    heart.innerHTML = ['❤️','💖','💗','💘','💓'][Math.floor(Math.random()*5)];
+                    heart.innerHTML = '❤️';
                     heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
                     document.body.appendChild(heart);
-                    setTimeout(() => heart.remove(), 4500);
+                    setTimeout(() => heart.remove(), 4000);
                 }, i * 200);
             }
         }
 
         function startAnalysis() {
-            n1 = document.getElementById('name1').value.trim();
-            n2 = document.getElementById('name2').value.trim();
-            if (!n1 || !n2) { alert("নাম লিখুন প্রীতম! 😂"); return; }
-            
-            audio.play().catch(e => {});
+            p1 = document.getElementById('name1').value.trim();
+            p2 = document.getElementById('name2').value.trim();
+            if (!p1 || !p2) { alert("নাম লিখুন!"); return; }
+            audio.play().catch(e=>{});
             document.getElementById('input-area').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
-
             setTimeout(() => {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('result-box').style.display = 'block';
-                showResult(n1, n2);
+                showResult(p1, p2);
             }, 2000);
         }
 
-        function showResult(p1, p2) {
-            document.getElementById('names-display').innerText = p1 + " + " + p2;
-            let score = ((p1.length + p2.length) * 7 + (p1.charCodeAt(0) || 0)) % 101;
-            if(score < 30) score += 35;
-            if(score > 100) score = 100;
+        function showResult(n1, n2) {
+            document.getElementById('names-display').innerText = n1 + " + " + n2;
+            let score = ((n1.length + n2.length) * 7 + (n1.charCodeAt(0) || 0)) % 101;
+            if(score < 30) score += 40;
             currentScore = score;
-
             let cur = 0;
             const t = setInterval(() => {
                 if (cur >= score) {
-                    clearInterval(t);
-                    finalizeResult(score);
-                    createFloatingHearts();
+                    clearInterval(t); finalizeResult(score); createFloatingHearts();
                 } else {
-                    cur++;
-                    document.getElementById('score-val').innerText = cur + "%";
+                    cur++; document.getElementById('score-val').innerText = cur + "%";
                 }
             }, 25);
         }
@@ -185,65 +191,55 @@
         function finalizeResult(s) {
             const label = document.getElementById('meme-label');
             const msg = document.getElementById('final-msg');
-            if(s >= 90) { label.innerText="Rab Ne Bana Di Jodi! 🤵👰"; msg.innerText="তোরা একদম পারফেক্ট! বিয়ের দাওয়াত কিন্তু চাই!"; confetti(); }
-            else if(s >= 70) { label.innerText="Jalwa Hai Hamara! ✨"; msg.innerText="কেমিস্ট্রি হেব্বি জোস! জাস্ট ফাটিয়ে দে দোস্ত।"; }
-            else if(s >= 50) { label.innerText="Gajab Bejjati Hai! 🤣"; msg.innerText="স্কোর তো এভারেজ! ব্রেক-আপ ঠেকাতে আজই ফুচকা খাওয়াও।"; }
-            else { label.innerText="Beta Tumse Na Ho Payega! 💀"; msg.innerText="তোর কপালে দুঃখ আছে ভাই, সিঙ্গেল থাকাই ভালো।"; }
+            if(s >= 90) { label.innerText="Perfect Match! 🤵👰"; msg.innerText="তোরা একদম মেড ফর ইচ আদার!"; confetti(); }
+            else if(s >= 70) { label.innerText="Super Chemistry! ✨"; msg.innerText="সম্পর্কটা দারুণ ভাবে এগিয়ে নিয়ে চলো!"; }
+            else { label.innerText="Need Efforts! 💀"; msg.innerText="একটু বেশি সময় দাও একে অপরকে।"; }
         }
 
         function getAdvice() {
-            const advices = [
-                "আজই ওকে ফুচকা খাওয়াতে নিয়ে যাও!", "ঝগড়া হলে আগে 'সরি' বলতে শেখো!", 
-                "ওর প্রিয় কালারটা মনে রাখো, কাজে দেবে!", "মাঝেমধ্যে ছোট ছোট সারপ্রাইজ গিফট দাও!",
-                "ওর বন্ধুদের সাথেও একটু ভালো ব্যবহার কোরো!", "নিজে রান্না করে একদিন ওকে খাওয়াও!", 
-                "ওর হাসির প্রশংসা করো প্রতিদিন!", "মাঝেমধ্যে হাতে লেখা চিঠি দাও!", 
-                "পার্টনারের শপিং এর সময় ধৈর্য হারাইও না!", "অন্য কারো সাথে ওকে তুলনা কোরো না!", 
-                "মাঝেমধ্যে ফোন দূরে রেখে কোয়ালিটি টাইম কাটাও!", "সব সময় সিরিয়াস থেকো না, একটু মজা করো!",
-                "ওর জন্মদিনটা ভুলো না ভুলেও!", "কখনো হাত ছেড়ে দিও না!",
-                "ওর ওপর ভরসা রাখো, ওটাই মূল ভিত!", "বেশি করে হাসো আর হাসাও!"
-            ];
+            const advices = ["আজই ফুচকা খাওয়াও!", "বেশি সন্দেহ কোরো না!", "সারপ্রাইজ গিফট দাও!", "একসাথে মুভি দেখো!", "মাঝেমধ্যে সরি বলো!"];
             const box = document.getElementById('advice-box');
             box.style.display = 'block';
             box.innerText = "💡 Advice: " + advices[Math.floor(Math.random() * advices.length)];
         }
 
-        // --- শক্তিশালী শেয়ারিং লজিক ---
-        function shareToApp(platform) {
-            const text = `আমার আর ${n2}-এর ভালোবাসার স্কোর ${currentScore}%! ❤️ চেক করো তোমারটা এই লিঙ্কে: ${window.location.href}`;
-            if (platform === 'wa') {
-                window.open(`whatsapp://send?text=${encodeURIComponent(text)}`, '_blank');
-                // ব্যাকআপ যদি উপরেরটা কাজ না করে
-                setTimeout(() => {
-                    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
-                }, 500);
-            } else if (platform === 'fb') {
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
-            }
-        }
+        // --- ইমেজ এবং লিঙ্ক শেয়ারিং ম্যাজিক ---
+        async function shareImageAndLink(platform) {
+            const node = document.getElementById('capture-node');
+            
+            // বাটন সাময়িকভাবে লুকানো
+            const elements = document.querySelectorAll('.btn-main, .share-container, .contact-us, footer');
+            elements.forEach(el => el.style.visibility = 'hidden');
 
-        function shareUniversal() {
+            const canvas = await html2canvas(node, { scale: 2, backgroundColor: null });
+            const dataUrl = canvas.toDataURL("image/png");
+            const blob = await (await fetch(dataUrl)).blob();
+            const file = new File([blob], 'LoveResult.png', { type: 'image/png' });
+
+            elements.forEach(el => el.style.visibility = 'visible');
+
             if (navigator.share) {
-                navigator.share({
-                    title: 'Love Calculator Result',
-                    text: `আমার আর ${n2}-এর ভালোবাসার স্কোর ${currentScore}%! ❤️`,
-                    url: window.location.href
-                }).catch(err => console.log("Error sharing", err));
+                try {
+                    await navigator.share({
+                        files: [file],
+                        title: 'Love Calculator Result',
+                        text: `আমার আর ${p2}-এর ভালোবাসার স্কোর ${currentScore}%! ❤️ চেক করো তোমারটা এই লিঙ্কে: ${window.location.href}`,
+                    });
+                } catch (err) {
+                    alert(`${platform}-এ শেয়ার করতে হলে আগে ইমেজটি সেভ করে নিন।`);
+                }
             } else {
-                alert("আপনার ব্রাউজারে শেয়ারিং কাজ করছে না। দয়া করে WhatsApp বা Facebook বাটন ব্যবহার করুন।");
+                alert("আপনার ব্রাউজার সরাসরি শেয়ার সাপোর্ট করছে না। রেজাল্টটি সেভ করে শেয়ার করুন।");
             }
         }
 
         function downloadCard() {
             const node = document.getElementById('capture-node');
-            const elementsToHide = document.querySelectorAll('.share-container, .btn-main, #advice-box, p');
-            elementsToHide.forEach(el => el.style.visibility = 'hidden');
-
-            html2canvas(node, { scale: 3, backgroundColor: '#ffffff' }).then(canvas => {
+            html2canvas(node, { scale: 3 }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = `Love_Result_Pritam.png`;
-                link.href = canvas.toDataURL("image/png");
+                link.href = canvas.toDataURL();
                 link.click();
-                elementsToHide.forEach(el => el.style.visibility = 'visible');
             });
         }
     </script>
