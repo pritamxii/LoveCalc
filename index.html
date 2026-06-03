@@ -685,7 +685,8 @@
         let tasksDoneTotal = 0;
 
         for(let i = 1; i <= daysInMonth; i++) {
-            const habits = allData[`selectedYear_${selectedMonth}_${i}`] || [];
+            // FIXED BUG HERE: Replaced 'selectedYear' text with actual variable using template literal syntax ${selectedYear}
+            const habits = allData[`${selectedYear}_${selectedMonth}_${i}`] || [];
             const score = calculateDailyScore(habits);
             let doneCount = habits.filter(h => h.done).length;
             tasksDoneTotal += doneCount;
